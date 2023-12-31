@@ -22,7 +22,7 @@ public class Task1 {
     public void initializer() {
     	
     WebDriverManager.chromedriver().setup();
-    
+    System.out.println("Start of Execution");
     driver.get("https://automationexercise.com/");
    
     }
