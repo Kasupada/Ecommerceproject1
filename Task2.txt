@@ -1,0 +1,697 @@
+package testCases;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.asserts.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+
+import pages.HomePage;
+import pages.LoginPage;
+import pages.CartPage;
+public class EveryTestCase {
+	 private WebDriver driver;
+	    private LoginPage loginPage;
+	    private HomePage homePage;
+        private CartPage cartPage;
+	    @BeforeTest
+	    public void setup() {
+	        // Set the path to the ChromeDriver executable
+	       
+
+	        // Initialize the ChromeDriver
+	        driver = new ChromeDriver();
+	        // Create ChromeOptions and disable notifications
+	        
+	        ChromeOptions options = new ChromeOptions();
+	        options.addArguments("--disable-notifications");
+	        
+	        driver.get("https://www.saucedemo.com/");
+	        // Create an instance of the LoginPage
+	        loginPage = new LoginPage(driver);
+	        homePage = new HomePage(driver);
+	        cartPage = new CartPage(driver, homePage);
+	    }
+
+	    @Test
+	    public void invalidCredentials() {
+	    	driver.findElement(By.id("user-name")).sendKeys("varsha@$");
+	  	  driver.findElement(By.id("password")).sendKeys("2.0");
+	  	  driver.findElement(By.id("login-button")).click();
+	  	  WebElement invalidcredentials=driver.findElement(By.xpath("//div[@class='error-message-container error']"));
+	   if(invalidcredentials.isDisplayed()) {
+		   System.out.println("successfully displayed invalid credentials message.");
+		   
+	   }else {
+		   System.out.println("Not displayed invalid credentials message.");
+	   }
+	    }
+	    @Test
+	    public void testLoginWithStandardUser() throws InterruptedException {
+	        // Use the login methods
+	    	 homePage.logoutInHomePage();
+	        loginPage.withstandard_user();
+	        homePage. verifyProductImages();
+	        homePage. verifyCartImagePlacement();
+	       homePage.scrollUpInHomePage();
+	       homePage.scrollDownInHomePage();
+	        homePage. aboutPageOpening();
+	       homePage.addItemToCart();
+	       homePage.removeItemInCartFromHomePage();
+	       cartPage.removeItemInCartFromCartPage();
+	        cartPage.checkoutButton();
+	      cartPage. completeInfoAfterCheckout();
+	    cartPage.continueButton();
+	     cartPage.finishButton();
+	        cartPage.backToHomeButton();
+	   
+       homePage.clickTwitterImage();
+        homePage.clickFacebookImage();
+        homePage.clickInImage();
+	       
+	    }
+	    @Test
+	    public void testLoginwithlocked_out_user() {
+	        // Use the login methods
+	        loginPage.withlocked_out_user();
+	     // Check if the error message is displayed
+	        if (loginPage.isErrorMessageDisplayed()) {
+	            // If displayed, print the error message
+	            System.out.println("Error message is displayed: " + loginPage.getErrorMessageText());
+	        } else {
+	            // If not displayed, print a message indicating it's not displayed
+	            System.out.println("No error message is displayed");
+	        }
+	    }
+	    @Test
+	    public void testLoginwithproblem_user() throws InterruptedException {
+	        // Use the login methods
+	    	   homePage.logoutInHomePage();
+	           loginPage.withproblem_user();
+	           homePage. verifyProductImages();
+	           homePage.scrollUpInHomePage();
+		       homePage.scrollDownInHomePage();
+		       homePage. aboutPageOpening();
+		       homePage.addItemToCart();
+		      // homePage.removeItemInCartFromHomePage();
+		      // cartPage.removeItemInCartFromCartPage();
+		       cartPage.checkoutButton();
+		       cartPage. completeInfoAfterCheckout();  
+		      // cartPage.continueButton();
+		   
+		      // cartPage.finishButton();
+		     //  cartPage.backToHomeButton();
+		       
+	        // Perform other test steps as needed
+	    }
+	    @Test
+	    public void testLoginwithperformance_glitch_user() throws InterruptedException {
+	        // Use the login methods
+	    	 homePage.logoutInHomePage();
+	        loginPage.withperformance_glitch_user();
+	        homePage. verifyProductImages();
+	        homePage.verifyCartImagePlacement();
+	        // Perform other test steps as needed
+	        homePage.scrollUpInHomePage();
+		       homePage.scrollDownInHomePage();
+		       homePage. aboutPageOpening();
+		       homePage.addItemToCart();
+		       homePage.removeItemInCartFromHomePage();
+		       cartPage.removeItemInCartFromCartPage();
+		        cartPage.checkoutButton();
+		      cartPage. completeInfoAfterCheckout();
+		    cartPage.continueButton();
+		   
+		     cartPage.finishButton();
+		        cartPage.backToHomeButton();
+		        homePage.clickTwitterImage();
+		        homePage.clickFacebookImage();
+		        homePage.clickInImage();
+			       
+	    }
+	    @Test
+	    public void testLoginwitherror_user() throws InterruptedException {
+	    	 homePage.logoutInHomePage();
+	    	// Use the login methods
+	        loginPage.witherror_user();
+	        homePage. verifyProductImages();
+	        homePage.verifyCartImagePlacement();
+	        // Perform other test steps as needed
+	        homePage.scrollUpInHomePage();
+		       homePage.scrollDownInHomePage();
+		       homePage. aboutPageOpening();
+		       homePage.addItemToCart();
+		      // homePage.removeItemInCartFromHomePage();  //not
+		      // cartPage.removeItemInCartFromCartPage();
+		        cartPage.checkoutButton();
+		      cartPage. completeInfoAfterCheckout();
+		    cartPage.continueButton();
+		   
+		     cartPage.finishButton();   
+		       // cartPage.backToHomeButton();    
+	    }
+	    @Test
+	    public void testLoginwithvisual_user() throws InterruptedException {
+	    //	 homePage.logoutInHomePage();
+	    	// Use the login methods
+	    	
+	        loginPage.withvisual_user();
+	        homePage. verifyProductImages();
+	        homePage.verifyCartImagePlacement();
+	        // Perform other test steps as needed
+	        homePage.scrollUpInHomePage();
+		       homePage.scrollDownInHomePage();
+		        homePage. aboutPageOpening();
+
+		       homePage.addItemToCart();
+		       homePage.removeItemInCartFromHomePage();
+		       cartPage.removeItemInCartFromCartPage();
+		        cartPage.checkoutButton();
+		        cartPage. completeInfoAfterCheckout();
+		        cartPage.continueButton();
+		        cartPage.finishButton();
+		        cartPage.backToHomeButton();
+		        homePage.clickTwitterImage();
+		        homePage.clickFacebookImage();
+		        homePage.clickInImage();
+	    }
+	    // Add more @Test methods for other scenarios
+
+	    @AfterTest
+	    public void tearDown() {
+	        // Close the browser
+	        driver.close();
+	    }
+}
+package pages;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class LoginPage {
+	private WebDriver driver;
+	public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
+  public void withstandard_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("standard_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();
+	  String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+      
+      String actualHomePageURL = driver.getCurrentUrl();
+
+      if (actualHomePageURL.equals(expectedHomePageURL)) {
+          System.out.println("logged in successfully with standard user.");
+      } else {
+          System.out.println("logged in failed with standard user. Actual URL: " + actualHomePageURL);
+      }
+       }
+
+  
+///////////////////////////  
+  public void withlocked_out_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("locked_out_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();}
+	  public boolean isErrorMessageDisplayed() {
+	        // Check if the error message element is present
+	        return driver.findElement(By.xpath("//*[@id=\"login_button_container\"]/div/form/div[3]")).isDisplayed();
+	    
+  }
+	  public String getErrorMessageText() {
+	        // Get the text of the error message element
+	        return driver.findElement(By.xpath("//*[@id=\"login_button_container\"]/div/form/div[3]")).getText();
+	    }
+	  
+	///////////////////////////  
+	  
+  public void withproblem_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("problem_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();
+String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+      
+      String actualHomePageURL = driver.getCurrentUrl();
+
+      if (actualHomePageURL.equals(expectedHomePageURL)) {
+          System.out.println("logged in successfully with problem_user .");
+      } else {
+          System.out.println("logged in failed with problem_user. Actual URL: " + actualHomePageURL);
+      }
+       
+  }
+  public void withperformance_glitch_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();
+String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+      
+      String actualHomePageURL = driver.getCurrentUrl();
+
+      if (actualHomePageURL.equals(expectedHomePageURL)) {
+          System.out.println("logged in successfully with performance_glitch_user .");
+      } else {
+          System.out.println("logged in failed with performance_glitch_user. Actual URL: " + actualHomePageURL);
+      }
+  }
+  public void witherror_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("error_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();
+String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+      
+      String actualHomePageURL = driver.getCurrentUrl();
+
+      if (actualHomePageURL.equals(expectedHomePageURL)) {
+          System.out.println("logged in successfully with witherror_user .");
+      } else {
+          System.out.println("logged in failed with witherror_user. Actual URL: " + actualHomePageURL);
+      }
+  }
+  public void withvisual_user() {
+	  driver.findElement(By.id("user-name")).sendKeys("visual_user");
+	  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	  driver.findElement(By.id("login-button")).click();
+String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+      
+      String actualHomePageURL = driver.getCurrentUrl();
+
+      if (actualHomePageURL.equals(expectedHomePageURL)) {
+          System.out.println("logged in successfully with withvisual_user .");
+      } else {
+          System.out.println("logged in failed with withvisual_user. Actual URL: " + actualHomePageURL);
+      }
+  }
+}
+package pages;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class HomePage {
+	private WebDriver driver;
+	public HomePage(WebDriver driver) {
+        this.driver = driver;
+    }
+	///////////////////////////////////////////////////////////////////////////
+	public void verifyProductImages() {
+		// Find all image elements on the page
+        List<WebElement> imageElements = driver.findElements(By.tagName("img"));
+
+        // List to store unique image sources
+        List<String> uniqueImageSources = new ArrayList<>();
+
+        // List to store images that are not the same
+        List<String> differentImages = new ArrayList<>();
+
+        // Verify each image source
+        for (WebElement imageElement : imageElements) {
+            // Get the source attribute of the image
+            String imageSource = imageElement.getAttribute("src");
+
+            // Check if the image source is unique
+            if (!uniqueImageSources.contains(imageSource)) {
+                uniqueImageSources.add(imageSource);
+            } else {
+                differentImages.add(imageSource);
+            }
+        }
+
+        // Check and print the result
+        if (differentImages.isEmpty()) {
+            System.out.println("Different product images found:");
+            for (String imageSource : differentImages) {
+                System.out.println(imageSource);
+            }
+        } else {
+            System.out.println(" All product images are the same.");
+            
+        }
+       
+	}
+	//////////////////////////////////////////////////////////////////////////
+	public void verifyCartImagePlacement() {
+		 // Assuming the cart image is inside a specific container after login
+	    WebElement cartImageContainer = driver.findElement(By.className("shopping_cart_container"));
+	    WebElement imageElement = driver.findElement(By.id("shopping_cart_container"));
+
+	    // Check if the cart image container contains the cart image
+	    if (cartImageContainer.isDisplayed() && imageElement.isDisplayed()) {
+	    	 // Check if the class of the cart image container has changed to "visual_failure"
+	        if (cartImageContainer.getAttribute("class").contains("visual_failure")) {
+	            System.out.println("Cart image is not displayed in the correct place.");
+	        }
+	        else {
+	 	       
+	            System.out.println("Cart image is  displayed in the correct place.");
+	        }
+	    
+	    } else {
+	       
+	            System.out.println("Cart image is not displayed.");
+	        
+	    }
+  }
+	///////////////////////////////////////////////////////////////////
+	public void addItemToCart() {
+		driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
+		 // Wait for the "Remove" button to be visible, indicating the item is added to the cart
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement removeButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='remove-sauce-labs-backpack']")));
+
+        // Confirm that the "Remove" button is displayed
+        if (removeButton.isDisplayed()) {
+            System.out.println("Item added to the cart successfully.");
+        } else {
+            System.out.println("Failed to add the item to the cart.");
+        }
+    }
+	///////////////////////////////////////////////////////////////
+	public void scrollUpInHomePage() {
+
+        // Create a JavascriptExecutor instance
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Scroll down by a specified pixel value (e.g., 500 pixels)
+        js.executeScript("window.scrollBy(0,500)");
+
+        // Sleep for a short duration to observe the scroll
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	///////////////////////////////////////////////////////////////////
+	public void scrollDownInHomePage() {
+
+        // Create a JavascriptExecutor instance
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Scroll up by a specified pixel value (e.g., -500 pixels)
+        js.executeScript("window.scrollBy(0,-500)");
+
+        // Sleep for a short duration to observe the scroll
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	//////////////////////////////////////////////////////////////////////
+	public void removeItemInCartFromHomePage() {
+		 try {
+		        driver.findElement(By.xpath("//button[@id='remove-sauce-labs-backpack']")).click();
+		        
+		        // Wait for the "Remove" button to be visible, indicating the item is added to the cart
+		        WebDriverWait wait = new WebDriverWait(driver, 10);
+		        WebElement addToCartButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")));
+
+		        // Confirm that the "Remove" button is displayed
+		        if (addToCartButton.isDisplayed()) {
+		            System.out.println("Item Removed in the cart from Home Page successfully.");
+		        } else {
+		            System.out.println("Failed to Remove the item in the cart from Home Page");
+		        }
+		    } catch (Exception e) {
+		        System.out.println("Exception caught: " + e.getMessage());
+		    }
+		
+	}
+	
+   /////////////////////////////////////////////////////////////////////
+	public void logoutInHomePage() {
+		driver.findElement(By.id("user-name")).sendKeys("standard_user");
+		  driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		  driver.findElement(By.id("login-button")).click();
+		 driver.findElement(By.id("react-burger-menu-btn")).click();
+		 WebDriverWait wait = new WebDriverWait(driver, 10);
+	        WebElement logout = wait.until(ExpectedConditions.elementToBeClickable(By.id("logout_sidebar_link")));
+
+	        // Click the logout link
+	        logout.click();
+	        String expectedHomePageURL = "https://www.saucedemo.com/";
+		       
+	        String actualHomePageURL = driver.getCurrentUrl();
+
+	        if (actualHomePageURL.equals(expectedHomePageURL)) {
+	            System.out.println("successfully Loggedout.");
+	        } else {
+	            System.out.println("Loggedout Failed. Actual URL: " + actualHomePageURL);
+	        }
+	}
+	/////////////////////////////////////////////////////////////////////
+	public void aboutPageOpening() {
+		 driver.findElement(By.id("react-burger-menu-btn")).click();
+
+	        // Wait for the About link to be clickable
+	        WebDriverWait wait = new WebDriverWait(driver, 10);
+	        WebElement aboutLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='about_sidebar_link']")));
+
+	        // Click the About link
+	        aboutLink.click();
+
+	        // Additional verification if needed
+	        verifyAboutPage();
+	        driver.navigate().back();
+	}
+	  private void verifyAboutPage() {
+	        // Add verification steps here based on the Twitter page structure
+	        // For example, check for specific elements on the Twitter page or verify the page URL
+	        String expectedAboutPageURL = "https://saucelabs.com/";
+	       
+	        String actualAboutPageURL = driver.getCurrentUrl();
+
+	        if (actualAboutPageURL.equals(expectedAboutPageURL)) {
+	            System.out.println("About option in Home page is opened successfully.");
+	        } else {
+	            System.out.println("About option in Home page is not opened as expected. Actual URL: " + actualAboutPageURL);
+	        }
+	    }
+	/////////////////////////////////////////////////////////////////////
+	  public void clickTwitterImage() {
+	        // Assuming the Twitter image is inside an <a> tag with a specific attribute
+	        WebElement twitterLink = driver.findElement(By.cssSelector("#page_wrapper > footer > ul > li.social_twitter > a"));
+
+	        // Click on the Twitter image
+	        twitterLink.click();
+
+	        // After clicking, you can add verification steps to ensure that the Twitter page is opened
+	        // For example, check for elements on the Twitter page or verify the page URL
+	        verifyTwitterPage();
+	        driver.navigate().back();
+	       
+	    }
+
+	    private void verifyTwitterPage() {
+	        // Add verification steps here based on the Twitter page structure
+	        // For example, check for specific elements on the Twitter page or verify the page URL
+	        String expectedTwitterPageURL = "https://www.saucedemo.com/inventory.html";
+	       
+	        String actualTwitterPageURL = driver.getCurrentUrl();
+
+	        if (actualTwitterPageURL.equals(expectedTwitterPageURL)) {
+	            System.out.println("Twitter in Home page is opened successfully.");
+	        } else {
+	            System.out.println("Twitter in Home page is not opened as expected. Actual URL: " + actualTwitterPageURL);
+	        }
+	       driver.findElement(By .xpath("//*[@id=\"layers\"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div[2]/div/span/span")).click();
+	    }
+	    //////////////////////////////////////////////////////////////////////
+	    public void clickFacebookImage() {
+	        // Assuming the Twitter image is inside an <a> tag with a specific attribute
+	        WebElement facebookLink = driver.findElement(By.cssSelector("#page_wrapper > footer > ul > li.social_facebook > a"));
+
+	        // Click on the Twitter image
+	        facebookLink.click();
+
+	        // After clicking, you can add verification steps to ensure that the Twitter page is opened
+	        // For example, check for elements on the Twitter page or verify the page URL
+	        verifyFacebookPage();
+	        
+	        driver.navigate().back();
+	    }
+
+	    private void verifyFacebookPage() {
+	        // Add verification steps here based on the Twitter page structure
+	        // For example, check for specific elements on the Twitter page or verify the page URL
+	        String expectedFacebookPageURL = "https://www.saucedemo.com/inventory.html";
+	       
+	        String actualFacebookPageURL = driver.getCurrentUrl();
+
+	        if (actualFacebookPageURL.equals(expectedFacebookPageURL)) {
+	            System.out.println("Facebook in Home page is opened successfully.");
+	        } else {
+	            System.out.println("Facebook in Home page is not opened as expected. Actual URL: " + actualFacebookPageURL);
+	        }
+	    }
+	    ////////////////////////////////////////////////////////////////
+	    public void clickInImage() {
+	        // Assuming the Twitter image is inside an <a> tag with a specific attribute
+	        WebElement inLink = driver.findElement(By.cssSelector("#page_wrapper > footer > ul > li.social_linkedin > a"));
+
+	        // Click on the Twitter image
+	        inLink.click();
+
+	        // After clicking, you can add verification steps to ensure that the Twitter page is opened
+	        // For example, check for elements on the Twitter page or verify the page URL
+	        verifyInPage();
+	        driver.navigate().back();
+	    }
+
+	    private void verifyInPage() {
+	        // Add verification steps here based on the Twitter page structure
+	        // For example, check for specific elements on the Twitter page or verify the page URL
+	        String expectedInPageURL = "https://www.saucedemo.com/inventory.html";
+	       
+	        String actualInPageURL = driver.getCurrentUrl();
+
+	        if (actualInPageURL.equals(expectedInPageURL)) {
+	            System.out.println("LinkedIn in Home page is opened successfully.");
+	        } else {
+	            System.out.println("LinkedIn in Home page is not opened as expected. Actual URL: " + actualInPageURL);
+	        }
+	    }
+}
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import pages.HomePage;
+
+public class CartPage {
+	 private WebDriver driver;
+     private HomePage homePage;
+
+     public CartPage(WebDriver driver, HomePage homePage) {
+         this.driver = driver;
+         this.homePage = homePage;
+     }
+     ////////////////////////////////////////////////////////////
+   public void removeItemInCartFromCartPage() throws InterruptedException {
+	  
+	homePage.addItemToCart();     
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	 driver.findElement(By.xpath("//button[@id='remove-sauce-labs-backpack']")).click();
+	
+	Thread.sleep(3000);
+WebElement removedItem=driver.findElement(By.xpath("//div[@class='removed_cart_item']"));
+	   if(removedItem.isDisplayed())
+	   {
+		    System.out.println("Product is present after removing in the cart.");
+		} else {
+		    System.out.println("No products in the cart after removing.");
+		}
+	}
+	////////////////////////////////////////////////////////////////////////
+   public void checkoutButton() {
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	   driver.findElement(By.id("checkout") ).click();
+	   String expectedCheckoutPageURL = "https://www.saucedemo.com/checkout-step-one.html";
+       
+       String actualCheckoutPageURL = driver.getCurrentUrl();
+
+       if (actualCheckoutPageURL.equals(expectedCheckoutPageURL)) {
+           System.out.println("successfully opened page after clicking checkout button.");
+       } else {
+           System.out.println("openeing page after clicking checkout button is Failed. Actual URL: " + actualCheckoutPageURL);
+       }
+   }
+   public void completeInfoAfterCheckout() {
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	   driver.findElement(By.id("checkout") ).click();
+	   driver.findElement(By.id("first-name") ).sendKeys("sai");
+	   driver.findElement(By.id("last-name") ).sendKeys("krishna");
+	   driver.findElement(By.id("continue") ).click();
+	   WebElement error= driver.findElement(By.xpath("//div[@class='error-message-container error']") );
+	   if(error.isDisplayed())
+	   {
+		   System.out.println("Need complete info message error displayed.");
+	   }else {
+		   System.out.println("Need complete info message error not displayed without providing complete info.");
+	   }
+	   
+   }
+   public void continueButton() {
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	   driver.findElement(By.id("checkout") ).click();
+	   driver.findElement(By.id("first-name") ).sendKeys("sai");
+	   driver.findElement(By.id("last-name") ).sendKeys("krishna");
+	   driver.findElement(By.id("postal-code") ).sendKeys("3456789");
+	   driver.findElement(By.id("continue") ).click();
+ String expectedContinuePageURL = "https://www.saucedemo.com/checkout-step-two.html";
+       
+       String actualContinuePageURL = driver.getCurrentUrl();
+
+       if (actualContinuePageURL.equals(expectedContinuePageURL)) {
+           System.out.println("continue button is working.");
+       } else {
+           System.out.println("continue button is not working. Actual URL: " + actualContinuePageURL);
+       }
+	  
+   }
+   public void finishButton() {
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	   driver.findElement(By.id("checkout") ).click();
+	   driver.findElement(By.id("first-name") ).sendKeys("sai");
+	   driver.findElement(By.id("last-name") ).sendKeys("krishna");
+	   driver.findElement(By.id("postal-code") ).sendKeys("3456789");
+	   driver.findElement(By.id("continue") ).click();
+	   driver.findElement(By.xpath("//button[@id='finish']") ).click();
+String expectedFinishPageURL = "https://www.saucedemo.com/checkout-complete.html";
+       
+       String actualFinishPageURL = driver.getCurrentUrl();
+
+       if (actualFinishPageURL.equals(expectedFinishPageURL)) {
+           System.out.println("Finish button is working.");
+       } else {
+           System.out.println("Finish button is not working. Actual URL: " + actualFinishPageURL);
+       }
+   }
+   public void backToHomeButton() {
+	   driver.findElement(By.xpath("//div[@id='shopping_cart_container']") ).click();
+	   driver.findElement(By.id("checkout") ).click();
+	   driver.findElement(By.id("first-name") ).sendKeys("sai");
+	   driver.findElement(By.id("last-name") ).sendKeys("krishna");
+	   driver.findElement(By.id("postal-code") ).sendKeys("3456789");
+	   driver.findElement(By.id("continue") ).click();
+	   driver.findElement(By.xpath("//button[@id='finish']") ).click();
+	   driver.findElement(By.id("back-to-products") ).click();
+String expectedHomePageURL = "https://www.saucedemo.com/inventory.html";
+       
+       String actualHomePageURL = driver.getCurrentUrl();
+
+       if (actualHomePageURL.equals(expectedHomePageURL)) {
+           System.out.println("BacktoHome button is working.");
+       } else {
+           System.out.println("BacktoHome button is not working. Actual URL: " + actualHomePageURL);
+       }
+   }
+   
+}
